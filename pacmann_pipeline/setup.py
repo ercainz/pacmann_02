@@ -17,7 +17,7 @@ setuptools.setup(
     install_requires = [
         "numpy",
         "pandas==1.1.4",
-        "scikit-learn==0.22", #(>= 3.5)
+        "scikit-learn==0.24.2",
         "matplotlib",
         "seaborn==0.11.0"
         ],
