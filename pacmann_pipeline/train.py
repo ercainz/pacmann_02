@@ -4,11 +4,9 @@ import pandas as pd
 from helper.data_check_preparation import read_and_check_data
 from helper.feature_engineering import feature_engineering
 from helper.constant import TARGET, PATH
-from helper.models import LINEAR_MODEL_CLF
 from helper.preprocessing import standard_scaler
 
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_score
 
 
 def train_model():
@@ -39,22 +37,7 @@ def train_model():
     
     print("Start Saving Result Standard Scaler!")
     X_train_scaled.to_csv("artifacts/X_train_scaled.csv")
-    
-    # define model and start training
-    clf_model = LINEAR_MODEL_CLF["logreg_cv"]
-    clf_model.fit(X_train_scaled, y_train)
-    y_pred_class = clf_model.predict_proba(X_test_scaled).argmax(1)
-    y_pred_proba = clf_model.predict_proba(X_test_scaled)[:, 1]
 
-    pickle.dump(clf_model, open("artifacts/logreg_model.pkl", "wb"))
-    
-    # show training result
-    print("------------------------------")
-    print("Model Performance:")
-    print("ROC_AUC:", roc_auc_score(y_test, y_pred_proba))
-    print("Recall:", recall_score(y_test, y_pred_class))
-    print("Precision:", precision_score(y_test, y_pred_class))
-    print("f1_score:", f1_score(y_test, y_pred_class, average="macro")) 
 
 if __name__ == "__main__":
     print("START RUNNING PIPELINE!")
